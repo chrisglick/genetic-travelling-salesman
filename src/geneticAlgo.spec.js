@@ -1,9 +1,18 @@
 const equal = require('assert').deepEqual
-const { basic } = require('./geneticAlgo.js')
+const { generateOneDimensionalSamples, basic } = require('./geneticAlgo.js')
 
-describe( 'geneticAlgo.js', function() {
-  describe ('basicFun', function() {
-    it('should return True', function() {
+describe( 'geneticAlgo.js', () => {
+  describe('generateOneDimensionalSamples()', () => {
+      it('should return an array with X elements', () => {
+        const result = generateOneDimensionalSamples(9)
+        equal(result.length, 9)
+      })
+  })
+
+
+
+  describe ('basicFun', () => {
+    it('should return True', () => {
       const result = basic()
       equal(result, true)
     })
