@@ -1,7 +1,7 @@
 const equal = require('assert').deepEqual
 const notEqual = require('assert').notDeepEqual
 const { generateOneDimensionalPopulation } = require('./createDataSets.js')
-const { formatDataForFitness } = require('./geneticAlgo.js')
+const { formatDataForFitness, formatOneSolution } = require('./geneticAlgo.js')
 
 const getBasicPop = () => {
   const numCities = 9
@@ -28,6 +28,15 @@ describe( 'geneticAlgo.js', () => {
       const data = getBasicPop()
       const result = formatDataForFitness(data)
       equal(0, result.solutions[0].fitness)
+    })
+  })
+
+  describe('formatOneSolution()', () => {
+    it('should take the data array and add associate metadata in a JSON obj', () => {
+      const data = getBasicPop()
+      const oneSolution = data[0]
+      const result = formatOneSolution(oneSolution)
+      equal(0, result.fitness)
     })
   })
 })
