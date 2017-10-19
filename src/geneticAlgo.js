@@ -1,18 +1,20 @@
 const { generateOneDimensionalPopulation } = require('./createDataSets.js')
 
-const formatDataForFitness = (data) => {
-  const formattedData = {}
-  formattedData.solutions = data.map(x => formatOneSolution(x))
-  return formattedData
+const calcFitnessSolution = (data) => {
+  fitness = 0
+  for (i = 1; i < data.length; i++) {
+    fitness += Math.abs(data[i] - data[i-1])
+  }
+  return fitness
 }
 
-const formatOneSolution = (solution) => {
-  const formattedSolution = { 'fitness': 0, solution}
-  return formattedSolution
+const fillFitness = (pop) => {
+  return pop.map(steps => {
+     return { 'fitness': calcFitnessSolution(steps), 'steps': steps}
+  })
 }
-
 
 module.exports = {
-  formatDataForFitness,
-  formatOneSolution,
+  fillFitness,
+  calcFitnessSolution,
 }
