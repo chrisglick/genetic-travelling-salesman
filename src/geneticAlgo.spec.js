@@ -41,7 +41,13 @@ describe( 'geneticAlgo.js', () => {
       const numCities = 9
       const result = generateOneDimensionalPopulation(numSolutions, numCities)
       equal(result.length, numSolutions)
-      console.log(numSolutions)
+    })
+
+    it('should have unique solutions in the population', () => {
+      const numSolutions = 2
+      const numCities = 9
+      const result = generateOneDimensionalPopulation(numSolutions, numCities)
+      notEqual(result[0], result[1])
     })
   })
 

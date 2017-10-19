@@ -12,9 +12,9 @@ const generateOneDimensionalSolution = (numCities) => {
 
 const generateOneDimensionalPopulation = (numSolutions, numCities) => {
   const pop = new Array(numSolutions)
-  pop.map(x => generateOneDimensionalSolution(numCities))
-  console.log('wut,', pop)
-  return pop
+  return pop.fill(0).map(x => {
+    return generateOneDimensionalSolution(numCities)
+  })
 }
 
 const basic = () => { return true }
