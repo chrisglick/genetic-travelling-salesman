@@ -1,11 +1,11 @@
 const equal = require('assert').deepEqual
 const notEqual = require('assert').notDeepEqual
 const { generateOneDimensionalPopulation } = require('./createDataSets.js')
-const { formatOneSolution, calcFitnessSolution, fillFitness } = require('./geneticAlgo.js')
+const { selectBetterSolutions, calcFitnessSolution, fillFitness } = require('./geneticAlgo.js')
 
 const getBasicPop = () => {
   const numCities = 9
-  const numSolutions = 2
+  const numSolutions = 3
   return generateOneDimensionalPopulation(numSolutions, numCities)
 }
 
@@ -41,39 +41,23 @@ describe( 'geneticAlgo.js', () => {
       const result = fillFitness(pop)
       console.log(JSON.stringify(pop))
       equal(typeof result, 'object')
-
-
     })
   })
 
-
-  describe.skip('formatDataForFitness()', () => {
-    it('should take a 2-layer nested array and put it into a JSON package for easier work in the future', () => {
-      const data = getBasicPop()
-      const result = formatDataForFitness(data)
-      console.log(typeof result)
-      equal(typeof result, 'object')
+  describe('selectBetterSolutions()', () => {
+    it('should return a list half as long', () => {
+      const pop = getBasicPop()
+      const popWithFitness = fillFitness(pop)
+      const result = selectBetterSolutions(popWithFitness)
+      equal(result.length, Math.ceil(pop.length/2) )
     })
 
-    it('should put each solution in a pop into a "solutions" member of the overall object', () => {
-      const data = getBasicPop()
-      const result = formatDataForFitness(data)
-      equal('solutions' in result, true)
-    })
-
-    it('should assign each solution a 0 fitness', () => {
-      const data = getBasicPop()
-      const result = formatDataForFitness(data)
-      equal(0, result.solutions[0].fitness)
-    })
-  })
-
-  describe.skip('formatOneSolution()', () => {
-    it('should take the data array and add associate metadata in a JSON obj', () => {
-      const data = getBasicPop()
-      const oneSolution = data[0]
-      const result = formatOneSolution(oneSolution)
-      equal(0, result.fitness)
+    it('should only return the best (lowest) fitness scores', () => {
+      const pop = [[1,5,2,4,3],[1,2,3,4,5],[1,2,3,4,5],[1,2,5,3,4]]
+      const popWithFitness = fillFitness(pop)
+      const result = selectBetterSolutions(popWithFitness)
+      equal(result[0], [1,2,3,4,5])
+      equal(result[1], [1,2,3,4,5])
     })
   })
 })

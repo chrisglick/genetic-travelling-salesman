@@ -14,7 +14,15 @@ const fillFitness = (pop) => {
   })
 }
 
+const selectBetterSolutions = (popWithFitness) => {
+  const sortedPop = popWithFitness.sort( (a, b) => a.fitness - b.fitness)
+  const bestHalfPop = sortedPop.slice(0, Math.ceil(sortedPop.length/2))
+  const bestSteps = bestHalfPop.map(x => x.steps)
+  return bestSteps
+}
+
 module.exports = {
   fillFitness,
   calcFitnessSolution,
+  selectBetterSolutions,
 }
