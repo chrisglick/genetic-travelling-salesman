@@ -1,14 +1,21 @@
 
 
-const generateOneDimensionalSample = (numSamples) => {
-  const sample = new Array(numSamples)
-  for (i = 1; i <= numSamples; i++) {
-    sample[i- 1] = i
+const generateOneDimensionalSolution = (numCities) => {
+  const solution = new Array(numCities)
+  for (i = 1; i <= numCities; i++) {
+    solution[i- 1] = i
   }
-  console.log(sample)
-  return sample
+  const shuffledSolution = shuffleArray(solution)
+  return shuffledSolution
 }
 
+
+const generateOneDimensionalPopulation = (numSolutions, numCities) => {
+  const pop = new Array(numSolutions)
+  pop.map(x => generateOneDimensionalSolution(numCities))
+  console.log('wut,', pop)
+  return pop
+}
 
 const basic = () => { return true }
 
@@ -33,6 +40,7 @@ function shuffleArray(array) {
 
 
 module.exports = {
-  generateOneDimensionalSample,
+  generateOneDimensionalSolution,
+  generateOneDimensionalPopulation,
   basic,
 }
