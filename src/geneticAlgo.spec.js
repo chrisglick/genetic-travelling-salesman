@@ -1,7 +1,7 @@
 const equal = require('assert').deepEqual
 const notEqual = require('assert').notDeepEqual
 const { generateOneDimensionalPopulation } = require('./createDataSets.js')
-const { selectBetterSolutions, calcFitnessSolution, fillFitness } = require('./geneticAlgo.js')
+const { selectBetterSolutions, calcFitnessSolution, fillFitness, mutateSolution, getRandomIntNoDupe } = require('./geneticAlgo.js')
 
 const getBasicPop = () => {
   const numCities = 9
@@ -39,8 +39,9 @@ describe( 'geneticAlgo.js', () => {
       const pop = getBasicPop()
       pop[0] = [1,2,3,4,5]
       const result = fillFitness(pop)
-      console.log(JSON.stringify(pop))
       equal(typeof result, 'object')
+      equal(result[0].fitness, 4)
+      equal(result.length, pop.length)
     })
   })
 
@@ -58,6 +59,35 @@ describe( 'geneticAlgo.js', () => {
       const result = selectBetterSolutions(popWithFitness)
       equal(result[0], [1,2,3,4,5])
       equal(result[1], [1,2,3,4,5])
+    })
+  })
+
+  describe('mutateSolution()', () => {
+    it('should not return the input unchanged', () => {
+      const pop = getBasicPop()
+      const solution = pop[0]
+      const result = mutateSolution(solution)
+      equal(typeof solution, typeof result)
+      notEqual(result, solution)
+    })
+  })
+
+  describe('getRandomNumberNoDupe()', () => {
+    it('should not generate the same number if the num is banned', () => {
+      const badSeries = [2,4]
+      const startNum = 1
+      const endNum = 4
+      const result = getRandomIntNoDupe(startNum, endNum, badSeries)
+      notEqual(2, result)
+      notEqual(4, result)
+    })
+
+    it('should not infinitely recur', () => {
+      const badSeries = [1,2]
+      const startNum = 1
+      const endNum = 2
+      const result = getRandomIntNoDupe(startNum, endNum, badSeries)
+      equal(result, undefined)
     })
   })
 })
