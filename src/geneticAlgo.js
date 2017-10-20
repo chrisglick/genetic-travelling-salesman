@@ -1,27 +1,27 @@
-const { generateOneDimensionalPopulation } = require('./createDataSets.js')
+//const { generateOneDimensionalPopulation } = require('./createDataSets.js')
 
-const calcFitnessSolution = (data) => {
-  fitness = 0
-  for (i = 1; i < data.length; i++) {
-    fitness += Math.abs(data[i] - data[i-1])
+const calcFitnessSolution = data => {
+  var fitness = 0
+  for (var i = 1; i < data.length; i++) {
+    fitness += Math.abs(data[i] - data[i - 1])
   }
   return fitness
 }
 
-const fillFitness = (pop) => {
+const fillFitness = pop => {
   return pop.map(steps => {
-     return { 'fitness': calcFitnessSolution(steps), 'steps': steps}
+    return { fitness: calcFitnessSolution(steps), steps: steps }
   })
 }
 
-const selectBetterSolutions = (popWithFitness) => {
-  const sortedPop = popWithFitness.sort( (a, b) => a.fitness - b.fitness)
-  const bestHalfPop = sortedPop.slice(0, Math.ceil(sortedPop.length/2))
+const selectBetterSolutions = popWithFitness => {
+  const sortedPop = popWithFitness.sort((a, b) => a.fitness - b.fitness)
+  const bestHalfPop = sortedPop.slice(0, Math.ceil(sortedPop.length / 2))
   const bestSteps = bestHalfPop.map(x => x.steps)
   return bestSteps
 }
 
-const mutateSolution = (solution) => {
+const mutateSolution = solution => {
   const mutateFromIndex = getRandomIntNoDupe(0, solution.length)
   const mutateToIndex = getRandomIntNoDupe(0, solution.length, mutateFromIndex)
   const mutated = [].concat(solution)
@@ -30,7 +30,14 @@ const mutateSolution = (solution) => {
   return mutated
 }
 
-const getRandomIntNoDupe = (startNum, endNum, bannedList = [], generation = 0) => {
+const crossoverSolution = (solution1, solution2) => {}
+
+const getRandomIntNoDupe = (
+  startNum,
+  endNum,
+  bannedList = [],
+  generation = 0
+) => {
   const randomNum = Math.random()
   const expandedNum = Math.floor(randomNum * (endNum - startNum + 1) + startNum)
 
@@ -52,4 +59,5 @@ module.exports = {
   selectBetterSolutions,
   mutateSolution,
   getRandomIntNoDupe,
+  crossoverSolution,
 }

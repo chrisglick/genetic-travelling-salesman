@@ -1,9 +1,12 @@
 const equal = require('assert').deepEqual
 const notEqual = require('assert').notDeepEqual
-const { generateOneDimensionalSolution,
-  generateOneDimensionalPopulation, basic } = require('./createDataSets.js')
+const {
+  generateOneDimensionalSolution,
+  generateOneDimensionalPopulation,
+  basic,
+} = require('./createDataSets.js')
 
-describe( 'createDataSets.js', () => {
+describe('createDataSets.js', () => {
   describe('generateOneDimensionalSolution()', () => {
     it('should return an array with X elements (cities) which together are a possible solution', () => {
       const numCities = 9
@@ -51,9 +54,7 @@ describe( 'createDataSets.js', () => {
     })
   })
 
-
-
-  describe ('basicFun', () => {
+  describe('basicFun', () => {
     it('should return True', () => {
       const result = basic()
       equal(result, true)
