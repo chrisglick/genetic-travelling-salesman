@@ -22,15 +22,15 @@ const selectBetterSolutions = (popWithFitness) => {
 }
 
 const mutateSolution = (solution) => {
-  const mutateFromIndex = Math.round(Math.random() * solution.length )
-  const mutateToIndex = Math.round(Math.random() * solution.length )
+  const mutateFromIndex = getRandomIntNoDupe(0, solution.length)
+  const mutateToIndex = getRandomIntNoDupe(0, solution.length, mutateFromIndex)
   const mutated = [].concat(solution)
   mutated[mutateToIndex] = solution[mutateFromIndex]
   mutated[mutateFromIndex] = solution[mutateToIndex]
   return mutated
 }
 
-const getRandomIntNoDupe = (startNum, endNum, bannedList, generation = 0) => {
+const getRandomIntNoDupe = (startNum, endNum, bannedList = [], generation = 0) => {
   const randomNum = Math.random()
   const expandedNum = Math.floor(randomNum * (endNum - startNum + 1) + startNum)
 
@@ -41,7 +41,7 @@ const getRandomIntNoDupe = (startNum, endNum, bannedList, generation = 0) => {
     bannedNums = bannedList
   }
 
-  if (bannedList.indexOf(expandedNum) === -1) return expandedNum
+  if (bannedNums.indexOf(expandedNum) === -1) return expandedNum
   if (generation > 20) return undefined
   return getRandomIntNoDupe(startNum, endNum, bannedList, ++generation)
 }
