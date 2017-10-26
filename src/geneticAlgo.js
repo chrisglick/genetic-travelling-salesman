@@ -30,7 +30,9 @@ const mutateSolution = solution => {
   return mutated
 }
 
-const crossoverSolution = (solution1, solution2) => {}
+const crossoverSolution = (solution1, solution2) => {
+  return [solution2, solution1]
+}
 
 const getRandomIntNoDupe = (
   startNum,

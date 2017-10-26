@@ -90,8 +90,8 @@ describe('geneticAlgo.js', () => {
       const solution1 = pop[0]
       const solution2 = pop[1]
       const result = crossoverSolution(solution1, solution2)
-      notEqual(result[0], solution1)
-      notEqual(result[1], solution2)
+      notEqual(solution1, result[0])
+      notEqual(solution2, result[1])
     })
   })
 
