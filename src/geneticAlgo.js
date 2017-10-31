@@ -34,6 +34,16 @@ const crossoverSolution = (solution1, solution2) => {
   return [solution2, solution1]
 }
 
+const compareAllForEquality = array => {
+  const result = array.map(x => {
+    return array.map(y => {
+      console.log('compare ', x, ':', y, ' -> ', x == y)
+      x == y
+    })
+  })
+  return result
+}
+
 const getRandomIntNoDupe = (
   startNum,
   endNum,
@@ -62,4 +72,5 @@ module.exports = {
   mutateSolution,
   getRandomIntNoDupe,
   crossoverSolution,
+  compareAllForEquality,
 }

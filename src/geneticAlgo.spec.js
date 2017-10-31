@@ -8,6 +8,7 @@ const {
   mutateSolution,
   getRandomIntNoDupe,
   crossoverSolution,
+  compareAllForEquality,
 } = require('./geneticAlgo.js')
 
 const getBasicPop = () => {
@@ -94,6 +95,26 @@ describe('geneticAlgo.js', () => {
       notEqual(solution1, result[1])
       notEqual(solution2, result[0])
       notEqual(solution2, result[1])
+    })
+
+    it.skip('should containt the full data set and no duplicates/nulls', () => {
+      const solution1 = [1, 2, 3, 4, 5]
+      const solution2 = [5, 4, 3, 2, 1]
+      const result = crossoverSolution(solution1, solution2)
+      const sortedSolution1 = solution1.sort()
+      const sortedSolution2 = solution2.sort()
+      const resultChild1 = result[0].sort()
+      const resultChild2 = result[1].sort()
+      console.log('WHNAT WHATS')
+      console.log(sortedSolution1, sortedSolution2, resultChild1, resultChild2)
+      const compareResult = compareAllForEquality([
+        sortedSolution1,
+        sortedSolution2,
+        resultChild1,
+        resultChild2,
+      ])
+      console.log(compareResult)
+      equal(sortedSolution1, resultChild2)
     })
   })
 
